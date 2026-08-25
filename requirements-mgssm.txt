@@ -1,0 +1,3 @@
+# Install a CUDA-enabled PyTorch build separately for the target GPU.
+mamba-ssm==1.2.0.post1
+einops>=0.7,<0.8
