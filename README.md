@@ -22,35 +22,32 @@ stages switch to channel tokens when `D * H * W <= C`.
 
 ## Environment
 
-Use the existing compatible environment, or create a separate Python 3.10
-environment with PyTorch/CUDA first. FMCNet's module targets:
+The project uses its own Conda environment. It does not import nnU-Net from the
+LKM-UNet checkout:
 
 ```bash
-conda activate lkmunet
+conda activate nnunet_mgssm
 cd /home/dministrator/projects/nnUNet_MGSSM_baseline
 pip install -e .
 ```
 
-The baseline pins `mamba-ssm==1.2.0.post1`, the version already available in
-the `lkmunet` environment. Installing this project editable makes its
-`nnunetv2` package the active nnU-Net checkout in that environment.
+The dedicated environment contains Python 3.10, PyTorch 2.0.1+cu118,
+`mamba-ssm==1.2.0.post1`, and `einops==0.7.0`. The editable installation must
+resolve `nnunetv2` to this project directory.
 
 Set the standard nnU-Net paths (adjust them if a different dataset root is
 desired):
 
 ```bash
-export nnUNet_raw=/home/dministrator/projects/LKM-UNet_fresh_20260804/data/nnUNet_raw
-export nnUNet_preprocessed=/home/dministrator/projects/LKM-UNet_fresh_20260804/data/nnUNet_preprocessed
-export nnUNet_results=/home/dministrator/projects/nnUNet_MGSSM_baseline/data/nnUNet_results
+source /home/dministrator/projects/nnUNet_MGSSM_baseline/scripts/set_nnunet_paths.sh
 ```
 
 ## Train
 
-Planning and preprocessing remain standard nnU-Net operations:
+The existing PARSE2022 raw and preprocessed data are available as Dataset502:
 
 ```bash
-nnUNetv2_plan_and_preprocess -d DATASET_ID --verify_dataset_integrity
-nnUNetv2_train DATASET_ID 3d_fullres 0 -tr nnUNetTrainerMGSSMBaseline
+nnUNetv2_train 502 3d_fullres 0 -tr nnUNetTrainerMGSSMBaseline
 ```
 
 Train folds `0` through `4` in the same way as a normal nnU-Net experiment.

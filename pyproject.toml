@@ -87,3 +87,7 @@ dev = [
     "ruff",
     "pre-commit"
 ]
+
+[tool.setuptools.packages.find]
+include = ["nnunetv2*"]
+exclude = ["data*", "tests*"]

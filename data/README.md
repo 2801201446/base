@@ -6,6 +6,6 @@ Keep datasets and experiment outputs outside Git:
 - `nnUNet_preprocessed/`: fingerprints, plans, and preprocessed cases.
 - `nnUNet_results/`: checkpoints, validation predictions, and logs for this baseline.
 
-The main README shows environment variables that reuse the existing raw and
-preprocessed PARSE2022 data while writing new results into this project.
-
+This project uses `Dataset502_PARSE2022`. Its raw and preprocessed directories
+live under this folder, and new checkpoints are written to this project's
+`nnUNet_results/` directory.
